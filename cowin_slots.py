@@ -93,11 +93,12 @@ def search_slots(pin, static_data):
     cowin_date, age, vaccine_type, only_free, retry_in, print_in, work_dir = static_data
     URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin"
     PARAMS = {'pincode': pin, 'date': cowin_date}
+    HEADER = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15'}
     idx = 0
     while (1):
         time_elapsed = idx * retry_in
         try:
-            r = requests.get(url=URL, params=PARAMS)
+            r = requests.get(url=URL, params=PARAMS, headers=HEADER)
             data = r.json()
             if r.status_code == 400:
                 print("Wrong input parameters. Please check. \n")
